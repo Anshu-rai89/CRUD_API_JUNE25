@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.get("/hello", (req, res) => {
-  return res.status(200).json({ msg: "Hello world" });
+  return res.status(200).json({ msg: "Hello world updated" });
 });
 
 app.use(express.json());
