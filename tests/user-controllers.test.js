@@ -9,11 +9,8 @@ describe('Test for user registration flow', ()=> {
         password: "",
       });
 
-      console.log(response.statusCode);
-      console.log(response.body.msg);
-      console.log(response.body.data.errors);
-      expect(true).toEqual(true);
-     // expect(response.body.msg).toBe("Bad request");
-      //expect(response.body.data.errors[0].msg).toBe("Invalid email");
+      expect(response.statusCode).toEqual(400);
+      expect(response.body.msg).toBe("Bad request");
+      expect(response.body.data.errors[0].msg).toBe("Invalid email");
     });
 })
