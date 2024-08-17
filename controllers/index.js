@@ -54,9 +54,10 @@ const getPosts = async (req, res) => {
  * @param {Object} res - The HTTP response object.
  * @memberof controllers
  * @async
- *
+ * @property {string} [content] - The updated content of the post.
+ * @property {string} [imageUrl] - The updated image URL of the post.
+ * @property {string} [userName] - The updated username associated with the post.
  * @throws {400} - If any of the required properties (`content`, `imageUrl`, `userName`) are missing in the request body.
- *
  * @returns {Promise<Object>} A promise that resolves with an object containing the message "Post created successfully" and the ID of the newly created post.
  */
 
@@ -85,14 +86,12 @@ const createPosts = async (req, res) => {
 /**
  * Updates an existing post.
  *
- * @param {import('express').Request} req - The request object.
- * @param {import('express').Response} res - The response object.
- *
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
  * @typedef UpdatePostRequestBody
  * @property {string} [content] - The updated content of the post.
  * @property {string} [imageUrl] - The updated image URL of the post.
  * @property {string} [userName] - The updated username associated with the post.
- *
  * @returns {Promise<void>}
  */
 const updatePost = async (req, res) => {

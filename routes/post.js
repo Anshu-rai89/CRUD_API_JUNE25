@@ -6,7 +6,7 @@ const {
   createPosts,
   updatePost,
   deletePost,
-} = require("../controllers/index");
+} = require("../controllers");
 const {verifyToken} = require('../middleware');
 const {header,query,param,body} = require('express-validator');
 

@@ -11,9 +11,7 @@ require('dotenv').config();
  * @property {string} name - The user's name.
  * @property {string} email - The user's email address.
  * @property {string} password - The user's password.
- *
  * @returns {Promise<void>}
- *
  * @throws {400} - If validation errors occur or a user with the provided email already exists.
  * @throws {500} - If an internal server error occurs during registration.
  */
