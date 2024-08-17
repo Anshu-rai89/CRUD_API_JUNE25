@@ -6,7 +6,7 @@ const {
   createPosts,
   updatePost,
   deletePost,
-} = require("../controllers");
+} = require("../controllers/index");
 const {verifyToken} = require('../middleware');
 const {header,query,param,body} = require('express-validator');
 
@@ -14,19 +14,16 @@ router.get(
   "/",
   header("metadata").notEmpty().withMessage("metadata  is missing."),
   query("pageNo").notEmpty().withMessage("pageNo  is missing."),
-  verifyToken,
   getPosts
 );
-router.post("/", verifyToken,createPosts);
+router.post("/",createPosts);
 router.delete("/:postId",
-  param('postId').isMongoId(),
-  verifyToken, deletePost);
+  param('postId').isMongoId());
 router.put(
   "/:postId",
   param("postId").isMongoId(),
   body("content").notEmpty(),
   body("imageUrl").notEmpty(),
-  verifyToken,
   updatePost
 );
 

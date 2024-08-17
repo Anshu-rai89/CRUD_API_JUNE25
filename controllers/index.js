@@ -4,7 +4,14 @@ const {validationResult} = require('express-validator');
 const redis = require('../config/redis');
 const client = require('../config/redis');
 
-module.exports.getPosts = async (req, res) => {
+/**
+ * body of get post
+ * @param {*} req 
+ * @param {*} res 
+ * @property pageSize
+ * @returns 
+ */
+const getPosts = async (req, res) => {
     const errors = validationResult(req);
    if (!errors.isEmpty()) {
      return res.status(400).json({
@@ -40,8 +47,21 @@ module.exports.getPosts = async (req, res) => {
     });
 }
 
-module.exports.createPosts = async (req, res) => {
-  const {content , imageUrl, userName} = req.body || {};
+/**
+ * Creates a new post.
+ *
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
+ * @memberof controllers
+ * @async
+ *
+ * @throws {400} - If any of the required properties (`content`, `imageUrl`, `userName`) are missing in the request body.
+ *
+ * @returns {Promise<Object>} A promise that resolves with an object containing the message "Post created successfully" and the ID of the newly created post.
+ */
+
+const createPosts = async (req, res) => {
+  const {content , imageUrl, userName} = req.body;
 
   if(_.isEmpty(content) || _.isEmpty(imageUrl) || _.isEmpty(userName)) {
     return res.status(400).json({
@@ -62,7 +82,20 @@ module.exports.createPosts = async (req, res) => {
 };
 
 
-module.exports.updatePost = async (req, res) => {
+/**
+ * Updates an existing post.
+ *
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ *
+ * @typedef UpdatePostRequestBody
+ * @property {string} [content] - The updated content of the post.
+ * @property {string} [imageUrl] - The updated image URL of the post.
+ * @property {string} [userName] - The updated username associated with the post.
+ *
+ * @returns {Promise<void>}
+ */
+const updatePost = async (req, res) => {
     const postId = req.params.postId;
     const {content , imageUrl, userName} = req.body;
 
@@ -83,7 +116,7 @@ module.exports.updatePost = async (req, res) => {
     });
 }
 
-module.exports.deletePost = async (req, res) => {
+const deletePost = async (req, res) => {
   const postId = req.params.postId;
   
   await Post.findByIdAndRemove(postId);
@@ -93,4 +126,12 @@ module.exports.deletePost = async (req, res) => {
     msg: "Post Deleted successfully",
     data: postId,
   });
+};
+
+
+module.exports = {
+  createPosts,
+  deletePost,
+  updatePost,
+  getPosts,
 };
